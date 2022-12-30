@@ -1,0 +1,78 @@
+
+<div class="inner">
+  {% if section.settings.title %}
+  <h2>{{ section.settings.title }}</h2>
+  {% endif %}
+  <div class="img-text_area">
+    <div class="left">
+      {% if section.settings.left-img %}
+      <img src="{{block.settings.left-img | img_url: "master"}}" alt="">
+      {% endif %}
+    </div>
+    <div class="right">
+      {% if section.settings.headline %}
+      <h3>{{ section.settings.headline }}</h3>
+      {% endif %}
+      {% if section.settings.ex-text %}
+      <p>{{ section.settings.ex-text }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .inner{
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .inner h2{
+    text-align: center;
+  }
+  .inner .img-text_area{
+    display: flex; 
+  }
+  .inner .img-text_area .left{
+    width: 50%;
+  }
+  .inner .img-text_area .left img{
+    width: 100%;
+  }
+  .inner .img-text_area .right{
+    width: 50%;
+  }
+{%- endstyle -%}
+
+{% schema %}
+  {
+    "name": "img-text", // セクションの名前
+    "tag": "section", // セクションを出力するときのHTMLタグ
+    "class": "section wrapper_img-text", // 出力したタグにつけるclass名
+    "settings": [ // セクションに追加するオプション設定
+      {
+        "type": "text", // 設定に使うフォームタイプ
+        "id": "title",
+        "label": "タイトル"
+      },
+      {
+        "type": "image_picker", // 設定に使うフォームタイプ
+        "id": "left-img",
+        "label": "画像"
+      },
+      {
+        "type": "text", // 設定に使うフォームタイプ
+        "id": "headline",
+        "label": "見出し"
+      },
+      {
+        "type": "textarea", // 設定に使うフォームタイプ
+        "id": "ex-text",
+        "label": "説明文"
+      }
+    ],
+    "presets": [
+      {
+        "name": "original_img-text"
+      }
+    ]
+  }
+  {% endschema %}
