@@ -1,13 +1,24 @@
 <div class="inner">
   <div class="logo">
-    <h1>Test Store</h1>
+    <h1>
+      <a href="#">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: '150px' }}
+        {%- else -%}
+          <span class="h2">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </h1>
   </div>
   <nav>
     <ul>
-      <li>Home</li>
-      <li>商品一覧</li>
-      <li>会社概要</li>
-      <li>お問い合わせ</li>
+      {%- for link in section.settings.menu.links -%}
+        <li>
+          <a href="{{ link.url }}">
+            <span>{{ link.title | escape }}</span>
+          </a>
+        </li>
+      {%- endfor -%}
     </ul>
   </nav>
   <div class="icon">
@@ -44,9 +55,23 @@
   }
 {%- endstyle -%}
 
+
 {% schema %}
   {
-    "name": "o_header",
-    "tag": "header"
+    "name": "original_header",
+    "class": "section-header",
+    "tag": "header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "t:sections.header.settings.logo.label"
+      }, {
+        "type": "link_list",
+        "id": "menu",
+        "default": "main-menu",
+        "label": "t:sections.header.settings.menu.label"
+      }
+    ]
   }
 {% endschema %}
